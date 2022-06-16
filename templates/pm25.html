@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM2.5 全台資訊網</title>
+
+    <!-- <link rel="stylesheet" href="../static/style.css"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename='./style.css')}}">
+
+</head>
+
+<body>
+    <div id="container">
+        <h1>PM2.5 全台資訊網</h1>
+        <div class="time">更新時間:{{time}}</div>
+        <form action="/pm25/sort">
+            <button type="submit">排序</button>
+        </form>
+        {% if error %}
+        {{error}}
+        {% endif %}
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for column in columns %}
+                    <th>
+                        {{column}}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for value in values %}
+                <tr>
+                    {% for data in value %}
+                    <td>{{data}}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

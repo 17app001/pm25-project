@@ -1,0 +1,31 @@
+body {
+    background-color: bisque;
+}
+
+#container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin: 16px auto;
+}
+
+th {
+    background-color: blueviolet;
+    color: white;
+}
+
+tbody {
+    background-color: rgb(122, 198, 233);
+}
+
+.time {
+    background-color: black;
+    border-radius: 12px;
+    padding: 6px;
+    color: aliceblue;
+    margin-bottom: 12px;
+}
