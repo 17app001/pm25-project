@@ -19,11 +19,12 @@ def get_pm25(sort=None):
                 (city, stationName, pd.to_datetime(resultTime).strftime('%Y-%m-%d %H:%M:%S'), result))
 
         if sort:
-            values=sorted(values,key=lambda x:x[-1],reverse=True)
-            
+            values = sorted(values, key=lambda x: x[-1], reverse=True)
+
         columns = ['city', 'stationName', 'resultTime', 'result']
 
     except Exception as e:
+        print(e)
         error = e
 
     return columns, values, error

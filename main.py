@@ -1,10 +1,11 @@
 from flask import Flask, render_template
 from datetime import datetime
-import json
 from pm25 import get_pm25
+import ssl
 
 app = Flask(__name__)
 
+ssl._create_default_https_context = ssl._create_unverified_context
 
 @app.route('/pm25/<sort>')
 @app.route('/pm25')
