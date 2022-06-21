@@ -1,28 +1,43 @@
 from flask import Flask, render_template,request
 from datetime import datetime
 from pm25 import get_pm25
-import ssl
+import ssl,json
 
 app = Flask(__name__)
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-# @app.route('/pm25/<sort>')
+@app.route('/pm25-chart')
+def draw_pm25():
+    return render_template('./pm25-chart.html')
+
+@app.route('/get-pm25-data',methods=['GET','POST'])
+def get_pm25_json():
+    columns, values, error = get_pm25()
+    
+    columns = ['city', 'stationName', 'resultTime', 'result']
+
+    stationName=[ value[1] for value in values]
+    result=[value[-1] for value in values]
+
+    datas={'columns':columns,'stationName':stationName,'result':result}
+
+    return json.dumps(datas,ensure_ascii=False)
+     
+
+     
+
 
 @app.route('/pm25',methods=['GET','POST'])
 def pm25():
     sort=False   
-    if request.method=='POST':      
-        
+    if request.method=='POST':              
         if request.form.get('sort'):
             sort=True
-
         if request.form.get('update'):
             sort=False   
 
-        print(sort)        
-  
     columns, values, error = get_pm25(sort)
     time = get_today()
     return render_template('./pm25.html', **locals())
@@ -92,4 +107,5 @@ def get_today():
 
 
 if __name__ == '__main__':
+    get_pm25_json()
     app.run(debug=True)

@@ -8,7 +8,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+    <script src="https://fastly.jsdelivr.net/npm/jquery"></script>
+    <script src="https://fastly.jsdelivr.net/npm/acorn@8.7.1/dist/acorn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
 
 
@@ -16,10 +18,9 @@
     <style>
         #main {
             text-align: center;
-            /* margin: 0 auto; */
+            margin: 0 auto;
             width: 1024px;
-            height: 400px;
-            padding: 16px;
+            height: 480px;
             margin-top: 20px;
             color: white;
         }
@@ -34,19 +35,41 @@
 </head>
 
 <body>
-    <h1>Hello {{result["name"]}}</h1>
-    <h2>{{result["time"]}}</h2>
+    <section class="hero is-danger is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <p class="title">
+                    PM2.5資訊
+                </p>
+                <p class="subtitle">
+                    資料來源:
+                    <a href="https://data.gov.tw/dataset/34827">https://data.gov.tw/dataset/34827</a>
+                </p>
+                <div class="columns">
+                    <div class="column is-6 box" id="main">
 
-    <div id="container">
-        <a href="./pm25">PM2.5資訊</a><br>
-        <a href="./pm25-chart">pm2.5圖形繪製</a>
+                    </div>
 
-    </div>
+                    <!-- <div class="column is-6 box">
+                        測試
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
 </body>
 <script>
-    // import * as echarts from 'echarts';
     let chart = echarts.init(document.querySelector("#main"));
+    // import * as echarts from 'echarts';
+    window.addEventListener("resize", function () {
+
+        chart.resize();
+
+    });
+
 
     $.ajax(
         {
@@ -55,8 +78,6 @@
             dataType: "json",
             success: (datas) => {
                 console.log(datas);
-
-                $(".data").text("");
                 draw_chart(chart, datas['stationName'], datas['result'])
             },
             error: () => {

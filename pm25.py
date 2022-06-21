@@ -1,6 +1,8 @@
 import pandas as pd
 
 
+
+
 def get_pm25(sort=False):
     columns, values, error = None, None, None
     try:
@@ -12,8 +14,7 @@ def get_pm25(sort=False):
         for data in datas:
             city, stationName = data['Thing']['properties']['city'], data['Thing']['properties']['stationName']
             resultTime, result = data['Observations'][0]['resultTime'], data['Observations'][0]['result']
-            # print(city, stationName, resultTime, result)
-
+        
             values.append(
                 (city, stationName, pd.to_datetime(resultTime).strftime('%Y-%m-%d %H:%M:%S'), result))
 
