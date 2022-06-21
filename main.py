@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request
 from datetime import datetime
 from pm25 import get_pm25
 import ssl
@@ -7,9 +7,22 @@ app = Flask(__name__)
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-@app.route('/pm25/<sort>')
-@app.route('/pm25')
-def pm25(sort=None):
+
+# @app.route('/pm25/<sort>')
+
+@app.route('/pm25',methods=['GET','POST'])
+def pm25():
+    sort=False   
+    if request.method=='POST':      
+        
+        if request.form.get('sort'):
+            sort=True
+
+        if request.form.get('update'):
+            sort=False   
+
+        print(sort)        
+  
     columns, values, error = get_pm25(sort)
     time = get_today()
     return render_template('./pm25.html', **locals())

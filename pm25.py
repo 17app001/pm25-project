@@ -1,8 +1,7 @@
 import pandas as pd
 
 
-def get_pm25(sort=None):
-    print(sort)
+def get_pm25(sort=False):
     columns, values, error = None, None, None
     try:
         print('資料解析中...')

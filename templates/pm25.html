@@ -16,8 +16,9 @@
     <div id="container">
         <h1>PM2.5 全台資訊網</h1>
         <div class="time">更新時間:{{time}}</div>
-        <form action="/pm25/sort">
-            <button type="submit">排序</button>
+        <form action="/pm25" method="POST">
+            <input type="submit" name="update" value="更新"></button>
+            <input type="submit" name="sort" value="排序"></button>
         </form>
         {% if error %}
         {{error}}
